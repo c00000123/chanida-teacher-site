@@ -1093,6 +1093,10 @@
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   }
   function saveFileFromDataUri(dataUri, filename){
+    if(!dataUri || dataUri.indexOf('data:') !== 0){
+      window.open(dataUri, '_blank');
+      return;
+    }
     var getDownloads = (window.claude && typeof window.claude.use === 'function') ? window.claude.use('downloads') : Promise.resolve(null);
     getDownloads.then(function(downloads){
       var blob = dataUriToBlob(dataUri);
